@@ -20,10 +20,6 @@ namespace ServiceChatBot.Dialogs
 				 new RegexCase<IDialog<string>>(new Regex("^hi", RegexOptions.IgnoreCase), (context, txt) =>
 				 {
 					 return Chain.ContinueWith(new GreetingDialog(), AfterGreetingContinuation);
-				 }),
-				 new DefaultCase<string, IDialog<string>>((context, txt) =>
-				 {
-					 return Chain.ContinueWith(FormDialog.FromForm(Data.BuildForm, FormOptions.PromptInStart), AfterGreetingContinuation);					 
 				 }))
 	 .Unwrap()
 	 .PostToUser();

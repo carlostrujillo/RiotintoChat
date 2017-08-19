@@ -12,8 +12,8 @@ using System.Web;
 
 namespace ServiceChatBot.Dialogs
 {
-	[LuisModel("924a8347-45e9-4db8-8524-34d036926f68", "fabdbd96b09f4b7cb20d8eb7679d1ff2")]
-	[Serializable]
+    [LuisModel("55143a21-98a4-4090-9e96-41944ba0d475", "56748e227cf7404d95e6174c84497cb3")]
+    [Serializable]
 	public class LUISDialog : LuisDialog<Data>
 	{
 		private readonly BuildFormDelegate<Data> Incident;
@@ -32,7 +32,7 @@ namespace ServiceChatBot.Dialogs
 		}
 
 
-		[LuisIntent("Geta")]
+		[LuisIntent("None")]
 		public async Task None(IDialogContext context, LuisResult result)
 		{
 			await context.PostAsync("I'm sorry I don't know what you mean.");
@@ -50,19 +50,38 @@ namespace ServiceChatBot.Dialogs
 			context.Wait(MessageReceived);
 		}
 
-		[LuisIntent("CreateIncident")]
-		public async Task CreateIncident(IDialogContext context, LuisResult result)
+		[LuisIntent("get_Datatype")]
+		public async Task GetDataType(IDialogContext context, LuisResult result)
 		{
 			var enrollmentForm = new FormDialog<Data>(new Data(), this.Incident, FormOptions.PromptInStart);
-			context.Call<Data>(enrollmentForm, CreateIncidentAzure);
+			context.Call<Data>(enrollmentForm, Callback);
 		}
 
-        private async Task CreateIncidentAzure(IDialogContext context, IAwaitable<object> result)
+        [LuisIntent("RespondQuery")]
+        public async Task RespondQuery(IDialogContext context, LuisResult result)
         {
-            // save to azure
+            if(result.Entities.Count > 0)
+            {
+                foreach( var entity in result.Entities)
+                {
+                    if (entity.Entity.ToLower() == "financial")
+                    {
+                        await context.PostAsync("No, It's confindential. Do not share");
+                        context.Wait(MessageReceived);
+                        return;
+                    }
+                }
+            }
+            //  EntityRecommendation rec = new EntityRecommendation();
+            //  rec.Type = ;
+            await context.PostAsync("What kind of document");
+            context.Wait(MessageReceived);
+            return;
+
         }
 
-		[LuisIntent("QueryMyIncidents")]
+
+        [LuisIntent("QueryMyIncidents")]
 		public async Task QueryMyIncidents(IDialogContext context, LuisResult result)
 		{
 			foreach (var entity in result.Entities.Where(Entity => Entity.Type == "Amenity"))

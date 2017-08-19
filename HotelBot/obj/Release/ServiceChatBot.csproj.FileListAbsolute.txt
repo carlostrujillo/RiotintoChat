@@ -44,3 +44,4 @@ C:\Users\carlos.trujillo\Documents\Visual Studio 2017\Projects\ServiceChatBot\Ho
 C:\Users\carlos.trujillo\Documents\Visual Studio 2017\Projects\ServiceChatBot\HotelBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
 C:\Users\carlos.trujillo\Documents\Visual Studio 2017\Projects\ServiceChatBot\HotelBot\obj\Release\Bot Application1.dll
 C:\Users\carlos.trujillo\Documents\Visual Studio 2017\Projects\ServiceChatBot\HotelBot\obj\Release\Bot Application1.pdb
+C:\Users\carlos.trujillo\Documents\Visual Studio 2017\Projects\ServiceChatBot\HotelBot\obj\Release\ServiceChatBot.csprojResolveAssemblyReference.cache
